@@ -1,21 +1,53 @@
 # 🌿 FloraScan - Plant Disease Detection
 
-A deep learning-based web application for detecting diseases in plant leaves using transfer learning with MobileNetV2.
+A web application for detecting diseases in plant leaves using deep learning and transfer learning with MobileNetV2.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)
 
-## 📋 Overview
+## 📋 About the Project
 
-FloraScan is a final year project that uses computer vision and deep learning to identify diseases in plant leaves. The system supports detection of 15 different disease classes across Tomato, Potato, and Bell Pepper plants.
+FloraScan is a final year project that uses computer vision and deep learning to identify diseases in plant leaves. It can detect 15 different disease classes across Tomato, Potato, and Bell Pepper plants.
 
-## 🎯 Features
+## ✨ Features
 
-- **Disease Detection**: Identifies 15 types of plant diseases
-- **Web Interface**: Modern, responsive UI with glassmorphism design
-- **Real-time Analysis**: Upload and analyze leaf images instantly
-- **Treatment Suggestions**: Provides symptoms and treatment recommendations
+- 🔍 Disease detection from leaf images
+- 🌱 Supports 15 disease classes (Tomato: 10, Potato: 3, Pepper: 2)
+- 📦 Batch upload - analyze multiple images at once
+- 🌐 Multi-language support (English and Hindi)
+- ⚠️ Severity indicator (Mild/Moderate/Severe)
+- 📜 Scan history - view past predictions
+- 📤 Share results to clipboard
+- 👨‍🌾 Farmer-friendly info with treatment cost, timing, and prevention tips
+- 📚 Disease library popup for each plant
+
+## 🚀 How to Use
+
+1. Open the website
+2. Upload a leaf image or drag and drop
+3. Click "Analyze Plant"
+4. View the disease name, symptoms, treatment, cost, and prevention
+5. Use Share button to copy results
+6. View History to see past scans
+7. Switch to Batch Upload to analyze multiple images
+
+## 📸 Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Upload and Analyze
+![Upload](screenshots/upload.png)
+![Analyzing](screenshots/uploading.png)
+![Analyze](screenshots/analyze.png)
+
+### Results
+![Results](screenshots/result.png)
+
+### Hindi Language
+![Hindi Home](screenshots/hindi%20home.png)
+![Hindi Result](screenshots/hindi%20result.png)
 
 ## 📊 Model Performance
 
@@ -24,106 +56,69 @@ FloraScan is a final year project that uses computer vision and deep learning to
 | ANN Baseline | 7.5% |
 | Basic CNN | 68.7% |
 | Improved CNN | 80.4% |
-| Transfer Learning (MobileNetV2) | 83.5% |
-| **Fine-tuned (Best)** | **84.5%** |
+| Transfer Learning | 83.5% |
+| Fine-tuned Model | 84.5% |
 
 ## 🗂️ Project Structure
 
 ```
 FloraScan/
 ├── app.py                  # Flask application
-├── requirements.txt        # Python dependencies
+├── requirements.txt        # Dependencies
 ├── models/                 # Trained models
-│   ├── model_v5_retrained.h5
-│   └── class_names.json
-├── notebooks/              # Jupyter notebooks
-│   ├── 00_ann_baseline.ipynb
-│   ├── 01_basic_cnn.ipynb
-│   ├── 02_improved_cnn.ipynb
-│   ├── 03_transfer_learning.ipynb
-│   ├── 04_final_model.ipynb
-│   ├── 05_model_comparison.ipynb
-│   └── 05_retrain_model.ipynb
-├── static/
-│   ├── css/style.css
-│   ├── js/main.js
-│   └── images/
-├── templates/
-│   └── index.html
-└── results/                # Generated graphs
+├── notebooks/              # Training notebooks
+├── static/                 # CSS, JS, images
+├── templates/              # HTML templates
+└── screenshots/            # App screenshots
 ```
 
-## 🚀 Installation
+## ⚙️ Installation
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/YOUR_USERNAME/FloraScan.git
+1. Clone the repository
+```
+git clone https://github.com/saniaakhan9/-FloraScan-Plant-Disease-Detection-Using-Machine-Learning-.git
 cd FloraScan
 ```
 
-2. **Create virtual environment**
-```bash
+2. Create virtual environment
+```
 python -m venv .venv
-.venv\Scripts\activate  # Windows
-source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate
 ```
 
-3. **Install dependencies**
-```bash
+3. Install dependencies
+```
 pip install -r requirements.txt
 ```
 
-4. **Run the application**
-```bash
+4. Run the application
+```
 python app.py
 ```
 
-5. **Open browser**
-```
-http://localhost:5000
-```
+5. Open browser at http://localhost:5000
 
-## 🧪 Training Notebooks
+## 🌱 Supported Plants and Diseases
 
-| Notebook | Description |
-|----------|-------------|
-| `00_ann_baseline.ipynb` | Baseline ANN model |
-| `01_basic_cnn.ipynb` | Basic CNN architecture |
-| `02_improved_cnn.ipynb` | CNN with regularization |
-| `03_transfer_learning.ipynb` | MobileNetV2 transfer learning |
-| `04_final_model.ipynb` | Fine-tuning MobileNetV2 |
-| `05_model_comparison.ipynb` | Model comparison dashboard |
+### 🍅 Tomato (10 classes)
+Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy
 
-## 🌱 Supported Plants & Diseases
+### 🥔 Potato (3 classes)
+Early Blight, Late Blight, Healthy
 
-### Tomato (10 classes)
-- Bacterial Spot, Early Blight, Late Blight, Leaf Mold
-- Septoria Leaf Spot, Spider Mites, Target Spot
-- Yellow Leaf Curl Virus, Mosaic Virus, Healthy
-
-### Potato (3 classes)
-- Early Blight, Late Blight, Healthy
-
-### Pepper (2 classes)
-- Bacterial Spot, Healthy
-
-## 📸 Screenshots
-
-*Run the application to see the modern glassmorphic UI with animations!*
+### 🌶️ Pepper (2 classes)
+Bacterial Spot, Healthy
 
 ## 🛠️ Technologies Used
 
-- **Backend**: Python, Flask, TensorFlow/Keras
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Model**: MobileNetV2 (Transfer Learning)
-- **Dataset**: PlantVillage Dataset
-
-## 📄 License
-
-This project is for educational purposes - Final Year Project 2025.
+- Python, Flask
+- TensorFlow, Keras
+- HTML, CSS, JavaScript
+- MobileNetV2 (Transfer Learning)
+- PlantVillage Dataset
 
 ## 👤 Author
 
-**SANIA KHAN**
-- Final Year Computer Science Student
-- Project: FloraScan - Plant Disease Detection
+**Sania Khan**  
+Final Year Computer Science Student  
+FloraScan - Plant Disease Detection (2025)
