@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FloraScan - Plant Disease Detection</title>
-    <meta name="description" content="AI-Powered Plant Disease Detection for Tomato, Potato, and Pepper plants">
+    <meta name="description" content="Smart Plant Disease Detection for Tomato, Potato, and Pepper plants">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle" id="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हि</button>
+    </div>
+
     <!-- Animated Background Orbs -->
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
@@ -19,43 +25,45 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- Floating Leaves - REMOVED -->
-
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-content">
             <div class="logo-icon">🌿</div>
             <h1 class="hero-title">FloraScan</h1>
-            <p class="hero-subtitle">Smart Plant Disease Detection System</p>
+            <p class="hero-subtitle" data-en="Smart Plant Disease Detection System"
+                data-hi="स्मार्ट पौधे रोग पहचान प्रणाली">Smart Plant Disease Detection System</p>
 
             <!-- Plant Category Cards -->
             <div class="category-grid">
-                <div class="category-card">
+                <div class="category-card" data-plant="tomato" onclick="showDiseaseModal('tomato')">
                     <div class="category-image">
                         <img src="{{ url_for('static', filename='images/tomato.jpg') }}" alt="Tomato">
                     </div>
-                    <h3 class="category-title">Tomato</h3>
-                    <p class="category-diseases">10 disease types</p>
+                    <h3 class="category-title" data-en="Tomato" data-hi="टमाटर">Tomato</h3>
+                    <p class="category-diseases" data-en="10 disease types" data-hi="10 रोग प्रकार">10 disease types</p>
+                    <span class="view-diseases">View Diseases →</span>
                 </div>
-                <div class="category-card">
+                <div class="category-card" data-plant="potato" onclick="showDiseaseModal('potato')">
                     <div class="category-image">
                         <img src="{{ url_for('static', filename='images/potato.jpg') }}" alt="Potato">
                     </div>
-                    <h3 class="category-title">Potato</h3>
-                    <p class="category-diseases">3 disease types</p>
+                    <h3 class="category-title" data-en="Potato" data-hi="आलू">Potato</h3>
+                    <p class="category-diseases" data-en="3 disease types" data-hi="3 रोग प्रकार">3 disease types</p>
+                    <span class="view-diseases">View Diseases →</span>
                 </div>
-                <div class="category-card">
+                <div class="category-card" data-plant="pepper" onclick="showDiseaseModal('pepper')">
                     <div class="category-image">
                         <img src="{{ url_for('static', filename='images/pepper.jpg') }}" alt="Pepper">
                     </div>
-                    <h3 class="category-title">Pepper</h3>
-                    <p class="category-diseases">2 disease types</p>
+                    <h3 class="category-title" data-en="Pepper" data-hi="शिमला मिर्च">Pepper</h3>
+                    <p class="category-diseases" data-en="2 disease types" data-hi="2 रोग प्रकार">2 disease types</p>
+                    <span class="view-diseases">View Diseases →</span>
                 </div>
             </div>
 
             <a href="#upload" class="cta-button">
                 <span>🔍</span>
-                Start Analysis
+                <span data-en="Start Analysis" data-hi="विश्लेषण शुरू करें">Start Analysis</span>
             </a>
         </div>
 
@@ -64,21 +72,43 @@
         </div>
     </section>
 
+    <!-- Disease Modal -->
+    <div class="disease-modal" id="disease-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDiseaseModal()">✕</button>
+            <h2 class="modal-title" id="modal-title">Tomato Diseases</h2>
+            <div class="disease-list" id="disease-list"></div>
+        </div>
+    </div>
+
     <!-- Upload Section -->
     <section class="upload-section" id="upload">
         <div class="upload-container">
-            <h2 class="section-title">Analyze Your Plant</h2>
-            <p class="section-subtitle">Upload a leaf image to detect diseases instantly</p>
+            <h2 class="section-title" data-en="Analyze Your Plant" data-hi="अपने पौधे का विश्लेषण करें">Analyze Your
+                Plant</h2>
+            <p class="section-subtitle" data-en="Upload a leaf image to detect diseases instantly"
+                data-hi="तुरंत रोग का पता लगाने के लिए पत्ती की छवि अपलोड करें">Upload a leaf image to detect diseases
+                instantly</p>
+
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="single-mode" data-en="Single" data-hi="एकल">Single</button>
+                <button class="mode-btn" id="batch-mode" data-en="Batch Upload" data-hi="बैच अपलोड">Batch
+                    Upload</button>
+            </div>
 
             <!-- Upload Box -->
             <div class="upload-box" id="upload-box">
                 <div class="upload-icon-wrapper">📷</div>
-                <p class="upload-text">Drop your image here</p>
-                <p class="upload-hint">or click to browse files</p>
+                <p class="upload-text" data-en="Drop your image here" data-hi="अपनी छवि यहाँ छोड़ें">Drop your image
+                    here</p>
+                <p class="upload-hint" data-en="or click to browse files"
+                    data-hi="या फ़ाइलें ब्राउज़ करने के लिए क्लिक करें">or click to browse files</p>
                 <input type="file" id="file-input" accept="image/*">
+                <input type="file" id="file-input-batch" accept="image/*" multiple style="display:none;">
             </div>
 
-            <!-- Preview Container -->
+            <!-- Single Preview Container -->
             <div class="preview-container" id="preview-container">
                 <div class="preview-image-wrapper">
                     <img id="preview-image" class="preview-image" alt="Preview">
@@ -86,13 +116,32 @@
 
                 <div class="action-buttons">
                     <button class="btn btn-analyze" id="analyze-btn" disabled>
-                        🔍 Analyze Plant
+                        🔍 <span data-en="Analyze Plant" data-hi="पौधे का विश्लेषण करें">Analyze Plant</span>
                     </button>
                     <button class="btn btn-reset" id="reset-btn">
-                        ↻ New Image
+                        ↻ <span data-en="New Image" data-hi="नई छवि">New Image</span>
                     </button>
                 </div>
             </div>
+
+            <!-- Batch Preview Container -->
+            <div class="batch-container" id="batch-container">
+                <div class="batch-preview-grid" id="batch-preview-grid"></div>
+                <div class="batch-progress" id="batch-progress">
+                    <span id="batch-progress-text">0/0</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-analyze" id="analyze-batch-btn" disabled>
+                        🔍 <span data-en="Analyze All" data-hi="सभी का विश्लेषण करें">Analyze All</span>
+                    </button>
+                    <button class="btn btn-reset" id="reset-batch-btn">
+                        ↻ <span data-en="Clear All" data-hi="सभी साफ़ करें">Clear All</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Batch Results Container -->
+            <div class="batch-results" id="batch-results"></div>
 
             <!-- Loading State -->
             <div class="loading" id="loading">
@@ -100,14 +149,21 @@
                     <div class="spinner"></div>
                     <div class="spinner-icon">🌱</div>
                 </div>
-                <p class="loading-text">Analyzing your plant...</p>
+                <p class="loading-text" data-en="Analyzing your plant..." data-hi="आपके पौधे का विश्लेषण हो रहा है...">
+                    Analyzing your plant...</p>
             </div>
 
             <!-- Results Section -->
             <div class="results-section" id="results-section">
                 <div class="result-card">
+                    <!-- Severity Badge -->
+                    <div class="severity-badge" id="severity-badge">
+                        <span class="severity-icon">⚠️</span>
+                        <span class="severity-text" data-en="Moderate" data-hi="मध्यम">Moderate</span>
+                    </div>
+
                     <div class="result-badge healthy" id="result-badge">
-                        <span>✓</span> Plant is Healthy
+                        <span>✓</span> <span data-en="Plant is Healthy" data-hi="पौधा स्वस्थ है">Plant is Healthy</span>
                     </div>
 
                     <div class="result-main">
@@ -122,20 +178,53 @@
                         </div>
                     </div>
 
-                    <div class="details-grid">
+                    <div class="details-grid details-grid-full">
                         <div class="detail-box">
-                            <h4>📋 Symptoms</h4>
+                            <h4>📋 <span data-en="Symptoms" data-hi="लक्षण">Symptoms</span></h4>
                             <p id="symptoms-text">Loading...</p>
                         </div>
                         <div class="detail-box">
-                            <h4>💊 Treatment</h4>
+                            <h4>💊 <span data-en="Treatment" data-hi="उपचार">Treatment</span></h4>
                             <p id="treatment-text">Loading...</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>💰 <span data-en="Est. Cost" data-hi="अनुमानित लागत">Est. Cost</span></h4>
+                            <p id="cost-text">Loading...</p>
+                        </div>
+                        <div class="detail-box">
+                            <h4>⏰ <span data-en="When to Apply" data-hi="कब लगाएं">When to Apply</span></h4>
+                            <p id="timing-text">Loading...</p>
+                        </div>
+                        <div class="detail-box detail-box-full">
+                            <h4>🛡️ <span data-en="Prevention" data-hi="रोकथाम">Prevention</span></h4>
+                            <p id="prevention-text">Loading...</p>
                         </div>
                     </div>
 
                     <div class="predictions-list" id="predictions-list">
-                        <h4>Other Possibilities</h4>
+                        <h4 data-en="Other Possibilities" data-hi="अन्य संभावनाएं">Other Possibilities</h4>
                     </div>
+
+                    <!-- Action Buttons -->
+                    <div class="result-actions">
+                        <button class="btn btn-share" id="share-btn">
+                            📤 <span data-en="Share Result" data-hi="परिणाम साझा करें">Share Result</span>
+                        </button>
+                        <button class="btn btn-history" id="history-btn">
+                            📜 <span data-en="View History" data-hi="इतिहास देखें">View History</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Panel -->
+            <div class="history-panel" id="history-panel">
+                <div class="history-header">
+                    <h3 data-en="Recent Scans" data-hi="हाल के स्कैन">Recent Scans</h3>
+                    <button class="close-history" id="close-history">✕</button>
+                </div>
+                <div class="history-list" id="history-list">
+                    <p class="no-history" data-en="No scans yet" data-hi="अभी तक कोई स्कैन नहीं">No scans yet</p>
                 </div>
             </div>
         </div>
