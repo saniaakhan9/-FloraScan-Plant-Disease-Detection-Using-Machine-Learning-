@@ -117,6 +117,16 @@ Bacterial Spot, Healthy
 - MobileNetV2 (Transfer Learning)
 - PlantVillage Dataset
 
+## 📄 Research Publication
+
+This project resulted in a published research paper:
+
+**FloraScan: Plant Disease Detection using Machine Learning and Transfer Learning**
+
+Published in: International Advanced Research Journal in Science, Engineering and Technology (IARJSET)
+
+DOI: https://doi.org/10.17148/IARJSET.2026.13472
+
 ## 👤 Author
 
 **Sania Khan**  
